@@ -5,7 +5,9 @@ Como a tecnologia pode melhorar a comunicação do estudante dentro da Fatec Ita
 
 Página de perguntas frequentes em listas suspensas: cada assunto (ex.: "Sobre a Fatec") abre e mostra as perguntas, as respostas e links para vídeos no YouTube. Há também uma busca que filtra as perguntas enquanto você digita.
 
-Abaixo do FAQ fica o **mural de avisos**: qualquer pessoa pode ler, e quem tem conta (telas de **Cadastro** e **Login**) pode publicar informações e excluir os próprios avisos.
+Abaixo do FAQ fica o **mural de avisos**: qualquer pessoa pode ler, e quem tem conta (telas de **Cadastro** e **Login**) pode publicar informações (com imagem ou vídeo do YouTube, opcionais) e excluir os próprios avisos. O mural tem busca própria.
+
+> `php artisan storage:link` é necessário uma vez para as imagens enviadas aparecerem.
 
 ### Stack
 
@@ -24,6 +26,7 @@ composer install
 cp .env.example .env
 php artisan key:generate
 php artisan migrate --seed
+php artisan storage:link
 php artisan serve
 ```
 

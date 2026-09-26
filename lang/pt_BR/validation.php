@@ -4,9 +4,12 @@
 return [
     'confirmed' => 'A confirmação de :attribute não confere.',
     'email' => 'Informe um :attribute válido.',
+    'image' => 'O arquivo de :attribute precisa ser uma imagem.',
     'max' => [
+        'file' => 'A :attribute pode ter no máximo :max KB.',
         'string' => 'O campo :attribute pode ter no máximo :max caracteres.',
     ],
+    'mimes' => 'A :attribute precisa ser do tipo: :values.',
     'min' => [
         'string' => 'O campo :attribute precisa ter pelo menos :min caracteres.',
     ],
@@ -15,6 +18,8 @@ return [
     ],
     'required' => 'O campo :attribute é obrigatório.',
     'string' => 'O campo :attribute precisa ser um texto.',
+    'uploaded' => 'Não foi possível enviar a :attribute. Tente um arquivo menor.',
+    'url' => 'Informe um :attribute válido.',
     'unique' => 'Este :attribute já está cadastrado.',
 
     'attributes' => [
@@ -23,5 +28,7 @@ return [
         'password' => 'senha',
         'titulo' => 'título',
         'conteudo' => 'informação',
+        'imagem' => 'imagem',
+        'video_url' => 'link do vídeo',
     ],
 ];

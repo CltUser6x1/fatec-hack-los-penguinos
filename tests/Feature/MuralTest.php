@@ -20,6 +20,7 @@ class MuralTest extends TestCase
             ->assertSee('Mural de avisos')
             ->assertSee('Semana de provas')
             ->assertSee('Coordenação')
+            ->assertSee('Buscar no mural')
             ->assertSee('para publicar no mural')
             ->assertDontSee('Publicar no mural');
     }
