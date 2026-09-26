@@ -15,7 +15,7 @@ class MuralController extends Controller
     {
         $dados = $request->validate([
             'titulo' => ['required', 'string', 'max:120'],
-            'conteudo' => ['required', 'string', 'max:2000'],
+            'conteudo' => ['required', 'string', 'max:10000'],
             'imagem' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp,gif', 'max:4096'],
             'video_url' => [
                 'nullable',

@@ -51,6 +51,21 @@ class MuralTest extends TestCase
             ->assertSessionHasErrors(['titulo', 'conteudo']);
     }
 
+    public function test_aviso_aceita_texto_longo_ate_10000_caracteres(): void
+    {
+        $usuario = User::factory()->create();
+
+        $this->actingAs($usuario)
+            ->post('/mural', ['titulo' => 'Edital', 'conteudo' => str_repeat('a', 10000)])
+            ->assertSessionHasNoErrors();
+
+        $this->actingAs($usuario)
+            ->post('/mural', ['titulo' => 'Grande demais', 'conteudo' => str_repeat('a', 10001)])
+            ->assertSessionHasErrors('conteudo');
+
+        $this->assertDatabaseCount('avisos', 1);
+    }
+
     public function test_so_o_autor_pode_excluir_o_aviso(): void
     {
         $autor = User::factory()->create();
