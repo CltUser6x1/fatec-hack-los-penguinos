@@ -5,6 +5,8 @@ Como a tecnologia pode melhorar a comunicação do estudante dentro da Fatec Ita
 
 Página de perguntas frequentes em listas suspensas: cada assunto (ex.: "Sobre a Fatec") abre e mostra as perguntas, as respostas e links para vídeos no YouTube. Há também uma busca que filtra as perguntas enquanto você digita.
 
+Abaixo do FAQ fica o **mural de avisos**: qualquer pessoa pode ler, e quem tem conta (telas de **Cadastro** e **Login**) pode publicar informações e excluir os próprios avisos.
+
 ### Stack
 
 - PHP 8.3+ e Laravel
