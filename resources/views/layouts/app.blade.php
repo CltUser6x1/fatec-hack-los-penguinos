@@ -15,6 +15,9 @@
 
         <div class="conta">
             @auth
+                @if (auth()->user()->is_admin)
+                    <a href="{{ route('admin.faq.index') }}">Editar FAQ</a>
+                @endif
                 <span>Olá, {{ auth()->user()->name }}</span>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

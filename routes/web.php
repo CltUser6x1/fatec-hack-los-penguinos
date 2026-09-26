@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\FaqAdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\MuralController;
@@ -19,4 +20,18 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('/mural', [MuralController::class, 'store'])->name('mural.store');
     Route::delete('/mural/{aviso}', [MuralController::class, 'destroy'])->name('mural.destroy');
+});
+
+Route::middleware(['auth', 'admin'])->prefix('admin/faq')->name('admin.faq.')->group(function () {
+    Route::get('/', [FaqAdminController::class, 'index'])->name('index');
+
+    Route::post('/secoes', [FaqAdminController::class, 'storeSecao'])->name('secoes.store');
+    Route::put('/secoes/{secao}', [FaqAdminController::class, 'updateSecao'])->name('secoes.update');
+    Route::delete('/secoes/{secao}', [FaqAdminController::class, 'destroySecao'])->name('secoes.destroy');
+
+    Route::get('/perguntas/nova', [FaqAdminController::class, 'createPergunta'])->name('perguntas.create');
+    Route::post('/perguntas', [FaqAdminController::class, 'storePergunta'])->name('perguntas.store');
+    Route::get('/perguntas/{pergunta}/editar', [FaqAdminController::class, 'editPergunta'])->name('perguntas.edit');
+    Route::put('/perguntas/{pergunta}', [FaqAdminController::class, 'updatePergunta'])->name('perguntas.update');
+    Route::delete('/perguntas/{pergunta}', [FaqAdminController::class, 'destroyPergunta'])->name('perguntas.destroy');
 });
