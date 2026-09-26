@@ -9,7 +9,12 @@ class Aviso extends Model
 {
     protected $table = 'avisos';
 
-    protected $fillable = ['titulo', 'conteudo', 'imagem', 'video_url'];
+    protected $fillable = ['setor_id', 'titulo', 'conteudo', 'imagem', 'video_url'];
+
+    public function setor(): BelongsTo
+    {
+        return $this->belongsTo(Setor::class);
+    }
 
     public function autor(): BelongsTo
     {
