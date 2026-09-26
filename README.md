@@ -31,4 +31,12 @@ O `.env.example` já vem com o usuário padrão do XAMPP (`root`, sem senha). Se
 
 Acesse http://127.0.0.1:8000.
 
-As perguntas ficam em `database/seeders/FaqSeeder.php`. Para rodar os testes: `php artisan test`.
+### Editar o FAQ
+
+Administradores editam seções e perguntas pelo site, no link **Editar FAQ** do topo (`/admin/faq`). Para dar essa permissão, cadastre a conta pelo site e rode:
+
+```bash
+php artisan faq:admin email@da.pessoa
+```
+
+Use `--remover` para tirar a permissão. As perguntas iniciais ficam em `database/seeders/FaqSeeder.php`. Para rodar os testes: `php artisan test`.
