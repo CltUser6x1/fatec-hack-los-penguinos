@@ -26,6 +26,7 @@ class MidiaMuralTest extends TestCase
         $aviso = Aviso::first();
         Storage::disk('public')->assertExists($aviso->imagem);
         $this->get('/')->assertSee($aviso->imagemUrl(), false);
+        $this->get($aviso->imagemUrl())->assertOk()->assertHeader('Content-Type', 'image/png');
     }
 
     public function test_arquivo_que_nao_e_imagem_e_recusado(): void

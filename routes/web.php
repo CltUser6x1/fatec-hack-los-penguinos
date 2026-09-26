@@ -6,6 +6,7 @@ use App\Http\Controllers\MuralController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FaqController::class, 'index'])->name('faq');
+Route::get('/mural/{aviso}/imagem', [MuralController::class, 'imagem'])->name('mural.imagem');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'mostrarLogin'])->name('login');

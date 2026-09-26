@@ -7,6 +7,7 @@ use Closure;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class MuralController extends Controller
 {
@@ -35,6 +36,16 @@ class MuralController extends Controller
         $request->user()->avisos()->create($dados);
 
         return redirect()->to(route('faq').'#mural')->with('status', 'Aviso publicado no mural.');
+    }
+
+    /**
+     * Entrega a imagem do aviso direto do storage, sem depender do atalho public/storage.
+     */
+    public function imagem(Aviso $aviso): StreamedResponse
+    {
+        abort_unless($aviso->imagem && Storage::disk('public')->exists($aviso->imagem), 404);
+
+        return Storage::disk('public')->response($aviso->imagem);
     }
 
     public function destroy(Request $request, Aviso $aviso): RedirectResponse

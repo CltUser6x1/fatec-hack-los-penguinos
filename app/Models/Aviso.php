@@ -32,8 +32,8 @@ class Aviso extends Model
 
     public function imagemUrl(): ?string
     {
-        // Usa o endereço acessado no navegador, então funciona em localhost ou 127.0.0.1 sem mexer no APP_URL.
-        return $this->imagem ? asset('storage/'.$this->imagem) : null;
+        // Rota do próprio Laravel: funciona sem o storage:link e em localhost ou 127.0.0.1.
+        return $this->imagem ? route('mural.imagem', $this, absolute: false) : null;
     }
 
     public function videoEmbedUrl(): ?string

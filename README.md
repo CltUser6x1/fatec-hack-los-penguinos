@@ -7,8 +7,6 @@ Página de perguntas frequentes em listas suspensas: cada assunto (ex.: "Sobre a
 
 Abaixo do FAQ fica o **mural de avisos**: qualquer pessoa pode ler, e quem tem conta (telas de **Cadastro** e **Login**) pode publicar informações (com imagem ou vídeo do YouTube, opcionais) e excluir os próprios avisos. O mural tem busca própria.
 
-> `php artisan storage:link` é necessário uma vez para as imagens enviadas aparecerem.
-
 ### Stack
 
 - PHP 8.3+ e Laravel
@@ -26,7 +24,6 @@ composer install
 cp .env.example .env
 php artisan key:generate
 php artisan migrate --seed
-php artisan storage:link
 php artisan serve
 ```
 
