@@ -1,27 +1,13 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Perguntas Frequentes | Fatec Itaquera</title>
-    <link rel="stylesheet" href="{{ asset('css/faq.css') }}">
-</head>
-<body>
-    <header class="topo">
-        <a href="{{ route('faq') }}" class="marca">
-            <span class="marca-nome">Fatec</span>
-            <span class="marca-unidade">Itaquera</span>
-        </a>
-    </header>
+@extends('layouts.app')
 
-    <nav class="menu">
-        <span>Perguntas frequentes</span>
-        <form class="busca" role="search" onsubmit="return false">
-            <label for="busca" class="sr-only">Buscar no FAQ</label>
-            <input id="busca" type="search" placeholder="Buscar no FAQ" autocomplete="off">
-        </form>
-    </nav>
+@section('menu-extra')
+    <form class="busca" role="search" onsubmit="return false">
+        <label for="busca" class="sr-only">Buscar no FAQ</label>
+        <input id="busca" type="search" placeholder="Buscar no FAQ" autocomplete="off">
+    </form>
+@endsection
 
+@section('conteudo')
     <section class="banner">
         <h1>Tire suas dúvidas sobre a Fatec</h1>
     </section>
@@ -56,12 +42,57 @@
         @endforelse
 
         <p id="sem-resultado" class="sem-resultado" hidden>Nenhuma pergunta encontrada para essa busca.</p>
+
+        <section id="mural" class="mural">
+            <h2 class="titulo-secao">Mural de avisos</h2>
+
+            @if (session('status'))
+                <p class="aviso-status">{{ session('status') }}</p>
+            @endif
+
+            @auth
+                <form method="POST" action="{{ route('mural.store') }}" class="formulario mural-form">
+                    @csrf
+                    <label for="titulo">Título</label>
+                    <input id="titulo" type="text" name="titulo" value="{{ old('titulo') }}" maxlength="120" required>
+                    @error('titulo') <p class="erro">{{ $message }}</p> @enderror
+
+                    <label for="conteudo">Informação</label>
+                    <textarea id="conteudo" name="conteudo" rows="4" maxlength="2000" required>{{ old('conteudo') }}</textarea>
+                    @error('conteudo') <p class="erro">{{ $message }}</p> @enderror
+
+                    <button type="submit" class="botao">Publicar no mural</button>
+                </form>
+            @else
+                <p class="mural-convite">
+                    <a href="{{ route('login') }}">Entre</a> ou <a href="{{ route('register') }}">cadastre-se</a> para publicar no mural.
+                </p>
+            @endauth
+
+            <div class="mural-grade">
+                @forelse ($avisos as $aviso)
+                    <article class="recado">
+                        <h3>{{ $aviso->titulo }}</h3>
+                        <p>{{ $aviso->conteudo }}</p>
+                        <footer>
+                            <span>{{ $aviso->autor->name }} · {{ $aviso->created_at->format('d/m/Y H:i') }}</span>
+                            @if (auth()->id() === $aviso->user_id)
+                                <form method="POST" action="{{ route('mural.destroy', $aviso) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="link-botao">Excluir</button>
+                                </form>
+                            @endif
+                        </footer>
+                    </article>
+                @empty
+                    <p class="sem-resultado">Nenhum aviso no mural ainda.</p>
+                @endforelse
+            </div>
+        </section>
     </main>
+@endsection
 
-    <footer class="rodape">
-        Projeto Los Penguinos · 1º Hackathon Fatec Itaquera
-    </footer>
-
+@push('scripts')
     <script src="{{ asset('js/faq.js') }}"></script>
-</body>
-</html>
+@endpush

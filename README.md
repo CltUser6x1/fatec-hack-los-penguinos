@@ -5,22 +5,29 @@ Como a tecnologia pode melhorar a comunicação do estudante dentro da Fatec Ita
 
 Página de perguntas frequentes em listas suspensas: cada assunto (ex.: "Sobre a Fatec") abre e mostra as perguntas, as respostas e links para vídeos no YouTube. Há também uma busca que filtra as perguntas enquanto você digita.
 
+Abaixo do FAQ fica o **mural de avisos**: qualquer pessoa pode ler, e quem tem conta (telas de **Cadastro** e **Login**) pode publicar informações e excluir os próprios avisos.
+
 ### Stack
 
 - PHP 8.3+ e Laravel
-- SQLite (banco padrão)
+- MySQL/MariaDB (XAMPP + phpMyAdmin)
 - HTML, CSS e JavaScript puros (sem etapa de build)
 
 ### Como rodar
+
+1. No XAMPP, inicie **Apache** e **MySQL**.
+2. Abra http://localhost/phpmyadmin, clique em **Novo** e crie o banco `faq_fatec` com agrupamento `utf8mb4_unicode_ci`.
+3. No terminal, dentro da pasta do projeto:
 
 ```bash
 composer install
 cp .env.example .env
 php artisan key:generate
-touch database/database.sqlite
 php artisan migrate --seed
 php artisan serve
 ```
+
+O `.env.example` já vem com o usuário padrão do XAMPP (`root`, sem senha). Se o seu MySQL tiver senha, ajuste `DB_PASSWORD` no `.env`.
 
 Acesse http://127.0.0.1:8000.
 
