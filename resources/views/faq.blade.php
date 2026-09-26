@@ -69,9 +69,14 @@
                 </p>
             @endauth
 
+            <form class="busca busca-mural" role="search" onsubmit="return false">
+                <label for="busca-mural" class="sr-only">Buscar no mural</label>
+                <input id="busca-mural" type="search" placeholder="Buscar no mural" autocomplete="off">
+            </form>
+
             <div class="mural-grade">
                 @forelse ($avisos as $aviso)
-                    <article class="recado">
+                    <article class="recado" data-recado>
                         <h3>{{ $aviso->titulo }}</h3>
                         <p>{{ $aviso->conteudo }}</p>
                         <footer>
@@ -89,10 +94,13 @@
                     <p class="sem-resultado">Nenhum aviso no mural ainda.</p>
                 @endforelse
             </div>
+
+            <p id="mural-sem-resultado" class="sem-resultado" hidden>Nenhum aviso encontrado para essa busca.</p>
         </section>
     </main>
 @endsection
 
 @push('scripts')
     <script src="{{ asset('js/faq.js') }}"></script>
+    <script src="{{ asset('js/mural.js') }}"></script>
 @endpush

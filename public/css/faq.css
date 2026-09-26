@@ -407,3 +407,18 @@ body {
     color: var(--cor-principal);
     font-weight: 600;
 }
+
+.busca-mural {
+    margin-top: 28px;
+}
+
+.busca-mural input {
+    width: 100%;
+    max-width: 640px;
+    border: 2px solid var(--cor-borda);
+    padding: 10px 12px;
+}
+
+.recado[hidden] {
+    display: none;
+}
