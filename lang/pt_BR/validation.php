@@ -4,6 +4,7 @@
 return [
     'confirmed' => 'A confirmação de :attribute não confere.',
     'email' => 'Informe um :attribute válido.',
+    'exists' => 'Escolha um :attribute válido.',
     'image' => 'O arquivo de :attribute precisa ser uma imagem.',
     'max' => [
         'file' => 'A :attribute pode ter no máximo :max KB.',
@@ -26,6 +27,7 @@ return [
         'name' => 'nome',
         'email' => 'e-mail',
         'password' => 'senha',
+        'setor_id' => 'setor',
         'titulo' => 'título',
         'conteudo' => 'informação',
         'imagem' => 'imagem',

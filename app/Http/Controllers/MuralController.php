@@ -14,6 +14,7 @@ class MuralController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $dados = $request->validate([
+            'setor_id' => ['required', 'exists:setores,id'],
             'titulo' => ['required', 'string', 'max:120'],
             'conteudo' => ['required', 'string', 'max:10000'],
             'imagem' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp,gif', 'max:4096'],

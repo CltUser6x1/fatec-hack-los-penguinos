@@ -53,6 +53,15 @@
             @auth
                 <form method="POST" action="{{ route('mural.store') }}" class="formulario mural-form" enctype="multipart/form-data">
                     @csrf
+                    <label for="setor_id">Setor</label>
+                    <select id="setor_id" name="setor_id" required>
+                        <option value="" disabled @selected(! old('setor_id'))>Escolha o setor</option>
+                        @foreach ($setores as $setor)
+                            <option value="{{ $setor->id }}" @selected(old('setor_id') == $setor->id)>{{ $setor->nome }}</option>
+                        @endforeach
+                    </select>
+                    @error('setor_id') <p class="erro">{{ $message }}</p> @enderror
+
                     <label for="titulo">Título</label>
                     <input id="titulo" type="text" name="titulo" value="{{ old('titulo') }}" maxlength="120" required>
                     @error('titulo') <p class="erro">{{ $message }}</p> @enderror
@@ -82,50 +91,29 @@
                 <input id="busca-mural" type="search" placeholder="Buscar no mural" autocomplete="off">
             </form>
 
-            <div class="mural-grade">
-                @forelse ($avisos as $aviso)
-                    <article @class(['recado', 'recado-com-imagem' => $aviso->imagem]) data-recado
-                        data-busca="{{ $aviso->titulo }} {{ $aviso->conteudo }} {{ $aviso->autor->name }}"
-                        tabindex="0" role="button" aria-haspopup="dialog"
-                        aria-label="Abrir aviso: {{ $aviso->titulo }}">
-                        @if ($aviso->imagem)
-                            <img src="{{ $aviso->imagemUrl() }}" alt="" class="recado-imagem" loading="lazy">
-                        @endif
-                        <h3>{{ $aviso->titulo }}</h3>
-                        <p class="recado-resumo">{{ Str::limit($aviso->conteudo, 600) }}</p>
-                        @if ($aviso->videoEmbedUrl())
-                            <span class="recado-selo">▶ Tem vídeo</span>
-                        @endif
-                        <footer>
-                            <span>{{ $aviso->autor->name }} · {{ $aviso->created_at->format('d/m/Y H:i') }}</span>
-                            @if (auth()->id() === $aviso->user_id)
-                                <form method="POST" action="{{ route('mural.destroy', $aviso) }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="link-botao">Excluir</button>
-                                </form>
-                            @endif
-                        </footer>
+            @foreach ($setores as $setor)
+                <section class="mural-setor" data-setor aria-labelledby="setor-{{ $setor->id }}">
+                    <h3 id="setor-{{ $setor->id }}" class="mural-setor-titulo">{{ $setor->nome }}</h3>
+                    <div class="mural-grade">
+                        @forelse ($setor->avisos as $aviso)
+                            @include('mural._recado')
+                        @empty
+                            <p class="sem-resultado">Nenhum aviso neste setor ainda.</p>
+                        @endforelse
+                    </div>
+                </section>
+            @endforeach
 
-                        <template data-detalhe>
-                            @if ($aviso->imagem)
-                                <img src="{{ $aviso->imagemUrl() }}" alt="Imagem do aviso {{ $aviso->titulo }}" class="modal-imagem">
-                            @endif
-                            <h3 id="modal-titulo">{{ $aviso->titulo }}</h3>
-                            <p class="modal-texto">{{ $aviso->conteudo }}</p>
-                            @if ($aviso->videoEmbedUrl())
-                                <div class="recado-video">
-                                    <iframe src="{{ $aviso->videoEmbedUrl() }}" title="Vídeo: {{ $aviso->titulo }}"
-                                        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                </div>
-                            @endif
-                            <p class="modal-autor">{{ $aviso->autor->name }} · {{ $aviso->created_at->format('d/m/Y H:i') }}</p>
-                        </template>
-                    </article>
-                @empty
-                    <p class="sem-resultado">Nenhum aviso no mural ainda.</p>
-                @endforelse
-            </div>
+            @if ($avisosSemSetor->isNotEmpty())
+                <section class="mural-setor" data-setor aria-labelledby="setor-outros">
+                    <h3 id="setor-outros" class="mural-setor-titulo">Outros avisos</h3>
+                    <div class="mural-grade">
+                        @foreach ($avisosSemSetor as $aviso)
+                            @include('mural._recado')
+                        @endforeach
+                    </div>
+                </section>
+            @endif
 
             <p id="mural-sem-resultado" class="sem-resultado" hidden>Nenhum aviso encontrado para essa busca.</p>
 

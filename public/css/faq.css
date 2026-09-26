@@ -592,3 +592,31 @@ body {
 .recado footer {
     margin-top: auto;
 }
+
+.formulario select {
+    padding: 10px 12px;
+    border: 2px solid var(--cor-borda);
+    border-radius: 6px;
+    background: #fff;
+    font: inherit;
+}
+
+.mural-setor {
+    margin-top: 32px;
+}
+
+.mural-setor[hidden] {
+    display: none;
+}
+
+.mural-setor-titulo {
+    margin: 0;
+    padding-bottom: 8px;
+    border-bottom: 3px solid var(--cor-borda);
+    color: var(--cor-texto);
+    font-size: 1.4rem;
+}
+
+.mural-setor .mural-grade {
+    margin-top: 16px;
+}

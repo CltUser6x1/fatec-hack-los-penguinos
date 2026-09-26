@@ -16,6 +16,11 @@ buscaMural?.addEventListener('input', () => {
         if (combina) visiveis++;
     });
 
+    // Durante a busca, esconde os setores que ficaram sem nenhum aviso visível.
+    document.querySelectorAll('[data-setor]').forEach((setor) => {
+        setor.hidden = termo !== '' && !setor.querySelector('[data-recado]:not([hidden])');
+    });
+
     muralSemResultado.hidden = visiveis > 0 || recados.length === 0;
 });
 
