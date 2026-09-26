@@ -1,27 +1,13 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Perguntas Frequentes | Fatec Itaquera</title>
-    <link rel="stylesheet" href="{{ asset('css/faq.css') }}">
-</head>
-<body>
-    <header class="topo">
-        <a href="{{ route('faq') }}" class="marca">
-            <span class="marca-nome">Fatec</span>
-            <span class="marca-unidade">Itaquera</span>
-        </a>
-    </header>
+@extends('layouts.app')
 
-    <nav class="menu">
-        <span>Perguntas frequentes</span>
-        <form class="busca" role="search" onsubmit="return false">
-            <label for="busca" class="sr-only">Buscar no FAQ</label>
-            <input id="busca" type="search" placeholder="Buscar no FAQ" autocomplete="off">
-        </form>
-    </nav>
+@section('menu-extra')
+    <form class="busca" role="search" onsubmit="return false">
+        <label for="busca" class="sr-only">Buscar no FAQ</label>
+        <input id="busca" type="search" placeholder="Buscar no FAQ" autocomplete="off">
+    </form>
+@endsection
 
+@section('conteudo')
     <section class="banner">
         <h1>Tire suas dúvidas sobre a Fatec</h1>
     </section>
@@ -57,11 +43,8 @@
 
         <p id="sem-resultado" class="sem-resultado" hidden>Nenhuma pergunta encontrada para essa busca.</p>
     </main>
+@endsection
 
-    <footer class="rodape">
-        Projeto Los Penguinos · 1º Hackathon Fatec Itaquera
-    </footer>
-
+@push('scripts')
     <script src="{{ asset('js/faq.js') }}"></script>
-</body>
-</html>
+@endpush
