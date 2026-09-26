@@ -58,7 +58,7 @@
                     @error('titulo') <p class="erro">{{ $message }}</p> @enderror
 
                     <label for="conteudo">Informação</label>
-                    <textarea id="conteudo" name="conteudo" rows="4" maxlength="2000" required>{{ old('conteudo') }}</textarea>
+                    <textarea id="conteudo" name="conteudo" rows="6" maxlength="10000" required>{{ old('conteudo') }}</textarea>
                     @error('conteudo') <p class="erro">{{ $message }}</p> @enderror
 
                     <label for="imagem">Imagem (opcional)</label>
@@ -84,13 +84,15 @@
 
             <div class="mural-grade">
                 @forelse ($avisos as $aviso)
-                    <article class="recado" data-recado tabindex="0" role="button" aria-haspopup="dialog"
+                    <article @class(['recado', 'recado-com-imagem' => $aviso->imagem]) data-recado
+                        data-busca="{{ $aviso->titulo }} {{ $aviso->conteudo }} {{ $aviso->autor->name }}"
+                        tabindex="0" role="button" aria-haspopup="dialog"
                         aria-label="Abrir aviso: {{ $aviso->titulo }}">
                         @if ($aviso->imagem)
                             <img src="{{ $aviso->imagemUrl() }}" alt="" class="recado-imagem" loading="lazy">
                         @endif
                         <h3>{{ $aviso->titulo }}</h3>
-                        <p class="recado-resumo">{{ $aviso->conteudo }}</p>
+                        <p class="recado-resumo">{{ Str::limit($aviso->conteudo, 600) }}</p>
                         @if ($aviso->videoEmbedUrl())
                             <span class="recado-selo">▶ Tem vídeo</span>
                         @endif

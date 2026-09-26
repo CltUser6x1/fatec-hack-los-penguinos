@@ -11,7 +11,7 @@ buscaMural?.addEventListener('input', () => {
     let visiveis = 0;
 
     recados.forEach((recado) => {
-        const combina = !termo || semAcento(recado.textContent).includes(termo);
+        const combina = !termo || semAcento(recado.dataset.busca).includes(termo);
         recado.hidden = !combina;
         if (combina) visiveis++;
     });
