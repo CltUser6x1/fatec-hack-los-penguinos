@@ -402,3 +402,8 @@ body {
 .recado footer form {
     margin: 0;
 }
+
+.conteudo-estreito a {
+    color: var(--cor-principal);
+    font-weight: 600;
+}
