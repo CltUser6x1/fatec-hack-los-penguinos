@@ -135,14 +135,19 @@ body {
 
 .lista > summary::after,
 .pergunta > summary::after {
-    content: "⌄";
-    font-size: 1.2em;
+    content: "";
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-3px) rotate(45deg);
     transition: transform 0.2s;
 }
 
 .lista[open] > summary::after,
 .pergunta[open] > summary::after {
-    transform: rotate(180deg);
+    transform: translateY(2px) rotate(225deg);
 }
 
 .lista > summary {
