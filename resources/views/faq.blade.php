@@ -84,17 +84,15 @@
 
             <div class="mural-grade">
                 @forelse ($avisos as $aviso)
-                    <article class="recado" data-recado>
+                    <article class="recado" data-recado tabindex="0" role="button" aria-haspopup="dialog"
+                        aria-label="Abrir aviso: {{ $aviso->titulo }}">
                         @if ($aviso->imagem)
                             <img src="{{ $aviso->imagemUrl() }}" alt="" class="recado-imagem" loading="lazy">
                         @endif
                         <h3>{{ $aviso->titulo }}</h3>
-                        <p>{{ $aviso->conteudo }}</p>
+                        <p class="recado-resumo">{{ $aviso->conteudo }}</p>
                         @if ($aviso->videoEmbedUrl())
-                            <div class="recado-video">
-                                <iframe src="{{ $aviso->videoEmbedUrl() }}" title="Vídeo: {{ $aviso->titulo }}" loading="lazy"
-                                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            </div>
+                            <span class="recado-selo">▶ Tem vídeo</span>
                         @endif
                         <footer>
                             <span>{{ $aviso->autor->name }} · {{ $aviso->created_at->format('d/m/Y H:i') }}</span>
@@ -106,6 +104,21 @@
                                 </form>
                             @endif
                         </footer>
+
+                        <template data-detalhe>
+                            @if ($aviso->imagem)
+                                <img src="{{ $aviso->imagemUrl() }}" alt="Imagem do aviso {{ $aviso->titulo }}" class="modal-imagem">
+                            @endif
+                            <h3 id="modal-titulo">{{ $aviso->titulo }}</h3>
+                            <p class="modal-texto">{{ $aviso->conteudo }}</p>
+                            @if ($aviso->videoEmbedUrl())
+                                <div class="recado-video">
+                                    <iframe src="{{ $aviso->videoEmbedUrl() }}" title="Vídeo: {{ $aviso->titulo }}"
+                                        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            @endif
+                            <p class="modal-autor">{{ $aviso->autor->name }} · {{ $aviso->created_at->format('d/m/Y H:i') }}</p>
+                        </template>
                     </article>
                 @empty
                     <p class="sem-resultado">Nenhum aviso no mural ainda.</p>
@@ -113,6 +126,11 @@
             </div>
 
             <p id="mural-sem-resultado" class="sem-resultado" hidden>Nenhum aviso encontrado para essa busca.</p>
+
+            <dialog id="recado-modal" class="modal" aria-labelledby="modal-titulo">
+                <button type="button" class="modal-fechar" aria-label="Fechar">×</button>
+                <div class="modal-corpo"></div>
+            </dialog>
         </section>
     </main>
 @endsection

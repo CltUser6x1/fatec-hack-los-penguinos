@@ -452,3 +452,102 @@ body {
     border: 0;
     border-radius: 4px;
 }
+
+.recado {
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.recado:hover,
+.recado:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+
+.recado:focus-visible {
+    outline: 3px solid var(--cor-escura);
+    outline-offset: 2px;
+}
+
+.recado-resumo {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.recado-selo {
+    align-self: flex-start;
+    margin-bottom: 12px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--cor-principal);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.modal {
+    width: min(720px, calc(100vw - 32px));
+    max-height: calc(100vh - 48px);
+    padding: 0;
+    border: 0;
+    border-top: 8px solid var(--cor-principal);
+    border-radius: 10px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.modal::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.modal-corpo {
+    padding: 24px 28px 20px;
+}
+
+.modal-corpo h3 {
+    margin: 0 36px 12px 0;
+    color: var(--cor-escura);
+    font-size: 1.5rem;
+}
+
+.modal-imagem {
+    display: block;
+    width: calc(100% + 56px);
+    max-height: 420px;
+    margin: -24px -28px 20px;
+    object-fit: contain;
+    background: #111;
+}
+
+.modal-texto {
+    line-height: 1.6;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
+.modal-autor {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.modal-fechar {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 1;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--cor-texto);
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.modal-fechar:hover {
+    background: #fff;
+}

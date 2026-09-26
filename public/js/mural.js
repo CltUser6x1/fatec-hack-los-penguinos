@@ -18,3 +18,38 @@ buscaMural?.addEventListener('input', () => {
 
     muralSemResultado.hidden = visiveis > 0 || recados.length === 0;
 });
+
+// Card no meio da tela: abre ao clicar no aviso e fecha ao clicar fora, no X ou com Esc.
+const modal = document.getElementById('recado-modal');
+const corpoModal = modal?.querySelector('.modal-corpo');
+
+const abrirRecado = (recado) => {
+    corpoModal.replaceChildren(recado.querySelector('[data-detalhe]').content.cloneNode(true));
+    modal.showModal();
+};
+
+recados.forEach((recado) => {
+    recado.addEventListener('click', (evento) => {
+        // O botão "Excluir" continua funcionando sem abrir o card.
+        if (evento.target.closest('form')) return;
+        abrirRecado(recado);
+    });
+
+    recado.addEventListener('keydown', (evento) => {
+        if (evento.target !== recado) return;
+        if (evento.key === 'Enter' || evento.key === ' ') {
+            evento.preventDefault();
+            abrirRecado(recado);
+        }
+    });
+});
+
+modal?.addEventListener('click', (evento) => {
+    // O próprio <dialog> só recebe o clique quando ele acontece no fundo escuro, fora do card.
+    if (evento.target === modal) modal.close();
+});
+
+modal?.querySelector('.modal-fechar').addEventListener('click', () => modal.close());
+
+// Limpa o conteúdo ao fechar para o vídeo parar de tocar.
+modal?.addEventListener('close', () => corpoModal.replaceChildren());
