@@ -1,0 +1,215 @@
+:root {
+    --cor-principal: #b20000;
+    --cor-escura: #7a0000;
+    --cor-borda: #e08080;
+    --cor-texto: #222;
+    --cor-fundo: #fff;
+    --cor-suave: #f4f4f4;
+    --fonte: "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: var(--fonte);
+    color: var(--cor-texto);
+    background: var(--cor-fundo);
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+}
+
+.topo {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 16px;
+}
+
+.marca {
+    display: inline-flex;
+    flex-direction: column;
+    text-decoration: none;
+    line-height: 1;
+}
+
+.marca-nome {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--cor-principal);
+}
+
+.marca-unidade {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #555;
+}
+
+.menu {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 12px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--cor-principal);
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 12px 12px 0 0;
+}
+
+.busca input {
+    width: 220px;
+    max-width: 100%;
+    padding: 8px 10px;
+    border: 0;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+.banner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 48px 16px;
+    background: linear-gradient(120deg, var(--cor-escura), var(--cor-principal));
+    color: #fff;
+    text-align: center;
+}
+
+.banner h1 {
+    margin: 0;
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+}
+
+.conteudo {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px 48px;
+}
+
+.trilha {
+    padding: 12px 0;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 0.9rem;
+}
+
+.trilha a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.titulo-secao {
+    color: var(--cor-principal);
+    text-transform: uppercase;
+    font-size: 1.8rem;
+}
+
+.lista {
+    margin-bottom: 20px;
+    border: 3px solid var(--cor-borda);
+    border-radius: 8px;
+}
+
+.lista > summary,
+.pergunta > summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    list-style: none;
+}
+
+.lista > summary::-webkit-details-marker,
+.pergunta > summary::-webkit-details-marker {
+    display: none;
+}
+
+.lista > summary::after,
+.pergunta > summary::after {
+    content: "⌄";
+    font-size: 1.2em;
+    transition: transform 0.2s;
+}
+
+.lista[open] > summary::after,
+.pergunta[open] > summary::after {
+    transform: rotate(180deg);
+}
+
+.lista > summary {
+    padding: 16px 20px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.lista > summary:focus-visible,
+.pergunta > summary:focus-visible {
+    outline: 3px solid var(--cor-escura);
+    outline-offset: 2px;
+}
+
+.perguntas {
+    list-style: none;
+    margin: 0;
+    padding: 0 20px 16px;
+}
+
+.perguntas li + li {
+    border-top: 1px solid #eee;
+}
+
+.pergunta > summary {
+    padding: 12px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--cor-escura);
+}
+
+.pergunta p {
+    margin: 0 0 12px;
+    line-height: 1.6;
+}
+
+.video {
+    display: inline-block;
+    margin-bottom: 16px;
+    padding: 8px 14px;
+    background: var(--cor-suave);
+    border-radius: 6px;
+    color: var(--cor-principal);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.video:hover {
+    background: #ffe5e5;
+}
+
+.sem-resultado {
+    color: #666;
+    font-style: italic;
+}
+
+.rodape {
+    padding: 24px 16px;
+    text-align: center;
+    background: var(--cor-suave);
+    font-size: 0.9rem;
+    color: #555;
+}
+
+@media (max-width: 600px) {
+    .lista > summary { font-size: 1.2rem; padding: 14px 16px; }
+    .perguntas { padding: 0 16px 12px; }
+    .busca, .busca input { width: 100%; }
+}
