@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\Storage;
 
 class Aviso extends Model
 {
@@ -33,7 +32,8 @@ class Aviso extends Model
 
     public function imagemUrl(): ?string
     {
-        return $this->imagem ? Storage::disk('public')->url($this->imagem) : null;
+        // Usa o endereço acessado no navegador, então funciona em localhost ou 127.0.0.1 sem mexer no APP_URL.
+        return $this->imagem ? asset('storage/'.$this->imagem) : null;
     }
 
     public function videoEmbedUrl(): ?string
