@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\MuralController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FaqController::class, 'index'])->name('faq');
@@ -13,4 +14,8 @@ Route::middleware('guest')->group(function () {
     Route::post('/cadastro', [AuthController::class, 'cadastrar']);
 });
 
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/mural', [MuralController::class, 'store'])->name('mural.store');
+    Route::delete('/mural/{aviso}', [MuralController::class, 'destroy'])->name('mural.destroy');
+});

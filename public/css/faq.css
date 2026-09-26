@@ -336,3 +336,69 @@ body {
     color: var(--cor-principal);
     font-size: 0.9rem;
 }
+
+.mural {
+    margin-top: 48px;
+    padding-top: 8px;
+    border-top: 1px solid #e5e5e5;
+}
+
+.aviso-status {
+    padding: 10px 14px;
+    border-radius: 6px;
+    background: #eaf6ea;
+    color: #1e5a1e;
+}
+
+.mural-form {
+    max-width: 640px;
+}
+
+.mural-convite a {
+    color: var(--cor-principal);
+    font-weight: 600;
+}
+
+.mural-grade {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.recado {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 18px;
+    border-left: 6px solid var(--cor-principal);
+    border-radius: 6px;
+    background: #fff8e1;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+
+.recado h3 {
+    margin: 0 0 8px;
+    color: var(--cor-escura);
+    font-size: 1.1rem;
+}
+
+.recado p {
+    flex: 1;
+    margin: 0 0 12px;
+    line-height: 1.5;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
+.recado footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.recado footer form {
+    margin: 0;
+}
