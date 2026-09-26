@@ -85,7 +85,8 @@ class FaqAdminController extends Controller
 
     private function validarPergunta(Request $request): array
     {
-        return $request->validate([
+        // Campos de vídeo vazios apagam o vídeo que existia.
+        $dados = $request->validate([
             'secao_id' => ['required', 'exists:secoes,id'],
             'pergunta' => ['required', 'string', 'max:255'],
             'resposta' => ['required', 'string', 'max:10000'],
@@ -93,6 +94,8 @@ class FaqAdminController extends Controller
             'video_titulo' => ['nullable', 'required_with:video_url', 'string', 'max:120'],
             'ordem' => ['nullable', 'integer', 'min:0'],
         ]);
+
+        return $dados + ['video_url' => null, 'video_titulo' => null];
     }
 
     private function voltar(string $mensagem): RedirectResponse
