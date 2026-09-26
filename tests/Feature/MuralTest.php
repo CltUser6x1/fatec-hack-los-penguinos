@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Setor;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -9,6 +10,15 @@ use Tests\TestCase;
 class MuralTest extends TestCase
 {
     use RefreshDatabase;
+
+    private Setor $setor;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->setor = Setor::create(['nome' => 'Notícias Principais', 'slug' => 'noticias-principais']);
+    }
 
     public function test_visitante_ve_o_mural_mas_nao_o_formulario(): void
     {
@@ -27,7 +37,7 @@ class MuralTest extends TestCase
 
     public function test_visitante_nao_consegue_publicar(): void
     {
-        $this->post('/mural', ['titulo' => 'Oi', 'conteudo' => 'Teste'])
+        $this->post('/mural', ['setor_id' => $this->setor->id, 'titulo' => 'Oi', 'conteudo' => 'Teste'])
             ->assertRedirect('/login');
 
         $this->assertDatabaseCount('avisos', 0);
@@ -38,7 +48,7 @@ class MuralTest extends TestCase
         $usuario = User::factory()->create();
 
         $this->actingAs($usuario)
-            ->post('/mural', ['titulo' => 'Palestra', 'conteudo' => 'Quinta às 19h no auditório.'])
+            ->post('/mural', ['setor_id' => $this->setor->id, 'titulo' => 'Palestra', 'conteudo' => 'Quinta às 19h no auditório.'])
             ->assertRedirect();
 
         $this->assertDatabaseHas('avisos', ['titulo' => 'Palestra', 'user_id' => $usuario->id]);
@@ -47,7 +57,7 @@ class MuralTest extends TestCase
     public function test_aviso_precisa_de_titulo_e_conteudo(): void
     {
         $this->actingAs(User::factory()->create())
-            ->post('/mural', ['titulo' => '', 'conteudo' => ''])
+            ->post('/mural', ['setor_id' => $this->setor->id, 'titulo' => '', 'conteudo' => ''])
             ->assertSessionHasErrors(['titulo', 'conteudo']);
     }
 
@@ -56,11 +66,11 @@ class MuralTest extends TestCase
         $usuario = User::factory()->create();
 
         $this->actingAs($usuario)
-            ->post('/mural', ['titulo' => 'Edital', 'conteudo' => str_repeat('a', 10000)])
+            ->post('/mural', ['setor_id' => $this->setor->id, 'titulo' => 'Edital', 'conteudo' => str_repeat('a', 10000)])
             ->assertSessionHasNoErrors();
 
         $this->actingAs($usuario)
-            ->post('/mural', ['titulo' => 'Grande demais', 'conteudo' => str_repeat('a', 10001)])
+            ->post('/mural', ['setor_id' => $this->setor->id, 'titulo' => 'Grande demais', 'conteudo' => str_repeat('a', 10001)])
             ->assertSessionHasErrors('conteudo');
 
         $this->assertDatabaseCount('avisos', 1);

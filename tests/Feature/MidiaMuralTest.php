@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Aviso;
+use App\Models\Setor;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -13,11 +14,21 @@ class MidiaMuralTest extends TestCase
 {
     use RefreshDatabase;
 
+    private Setor $setor;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->setor = Setor::create(['nome' => 'Notícias Principais', 'slug' => 'noticias-principais']);
+    }
+
     public function test_aviso_com_imagem_salva_o_arquivo(): void
     {
         Storage::fake('public');
 
         $this->actingAs(User::factory()->create())->post('/mural', [
+            'setor_id' => $this->setor->id,
             'titulo' => 'Feira de profissões',
             'conteudo' => 'Veja o cartaz.',
             'imagem' => UploadedFile::fake()->image('cartaz.png', 800, 600),
@@ -34,6 +45,7 @@ class MidiaMuralTest extends TestCase
         Storage::fake('public');
 
         $this->actingAs(User::factory()->create())->post('/mural', [
+            'setor_id' => $this->setor->id,
             'titulo' => 'Arquivo',
             'conteudo' => 'Texto',
             'imagem' => UploadedFile::fake()->create('virus.exe', 10),
@@ -45,6 +57,7 @@ class MidiaMuralTest extends TestCase
     public function test_video_do_youtube_vira_embed(): void
     {
         $this->actingAs(User::factory()->create())->post('/mural', [
+            'setor_id' => $this->setor->id,
             'titulo' => 'Aula inaugural',
             'conteudo' => 'Assista.',
             'video_url' => 'https://youtu.be/dQw4w9WgXcQ',
@@ -56,6 +69,7 @@ class MidiaMuralTest extends TestCase
     public function test_link_que_nao_e_do_youtube_e_recusado(): void
     {
         $this->actingAs(User::factory()->create())->post('/mural', [
+            'setor_id' => $this->setor->id,
             'titulo' => 'Vídeo',
             'conteudo' => 'Texto',
             'video_url' => 'https://exemplo.com/video',
@@ -83,6 +97,7 @@ class MidiaMuralTest extends TestCase
         $autor = User::factory()->create();
 
         $this->actingAs($autor)->post('/mural', [
+            'setor_id' => $this->setor->id,
             'titulo' => 'Com imagem',
             'conteudo' => 'Texto',
             'imagem' => UploadedFile::fake()->image('foto.jpg'),
